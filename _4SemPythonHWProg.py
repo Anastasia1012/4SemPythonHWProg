@@ -79,27 +79,19 @@ print(string)
 #файл второй:
 #сжатый текст.
 # Выполнение алгоритма сжатия данных кодирования длин серий (RLE) для строки `str`
-def encode(s):
- 
-    encoding = "" # сохраняет выходную строку
- 
-    i = 0
-    while i < len(s):
-        # подсчитывает количество вхождений символа в индексе `i`
-        count = 1
- 
-        while i + 1 < len(s) and s[i] == s[i + 1]:
-            count = count + 1
-            i = i + 1
- 
-        # добавляет к результату текущий символ и его количество
-        encoding += str(count) + s[i]
-        i = i + 1
- 
-    return encoding
- 
- 
-if __name__ == '__main__':
- 
-    s = 'ABBCCCD'
-    print(encode(s))
+    val=rle_encode('AAAAAAAAAAAABBBBBBBBBBBCCCCCCCCCCDDDDDDEEEEEFFFFG python is sooooooo coooooool')
+    with open('файл2.txt','w') as file3:
+        file3.write(val)
+    #print(val)
+    with open('файл2.txt','r') as file3:
+        cripto=file3.read()
+    with open('файл1.txt','w') as file3:
+        file3.write(rle_decode(cripto))
+    turtle_run=input('запустить черепашку? y/n -> ')
+    if turtle_run=='y':
+        target=turtle()
+    else: print('by))')
+
+
+except ValueError:
+    print(EOFError)
