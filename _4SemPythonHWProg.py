@@ -13,10 +13,19 @@ while n > 1:
 #    2 - Задайте последовательность чисел. Напишите программу, 
 #    которая выведет список неповторяющихся элементов исходной последовательности. Не использовать множества.
 #[1,1,1,1,2,2,2,3,3,3,4] -> [1,2,3,4]
-
-a = [1,2,2,2,3,4,5,5,5]
-print(tuple(sorted(filter(lambda x : a.count(x) == 1, a))))
-(1, 3, 4)
+import random
+arr_list=[random.randint(1,8) for i in range(15)]
+new_list=[arr_list[0]]
+i=0
+print(arr_list)
+while i < len(arr_list):
+    if arr_list[i] in new_list:
+        i+=1
+        continue
+    else:
+        new_list.append(arr_list[i])
+    i+=1
+print(new_list)
 
 #3 - В файле, содержащем фамилии студентов и их оценки, изменить на прописные буквы фамилии тех студентов, которые имеют средний балл более «4».
 #Нужно перезаписать файл.
@@ -84,14 +93,17 @@ def encryption(text,key)->str:
     return result
 
 string=input('шифр Цезаря\nВведите текст->')
-string=enigma(string)
+n=int(input('введите ключ шифрования'))
+string=enigma(string,n)
 print(string)
-with open('encr_text','w') as file2:
-file2.write(string)
-file2=open('encr_text')
+with open('test2.txt','w') as file2:
+    file2.write(string)
+file2=open('test2.txt')
 string=file2.read()
 file2.close
-string=encryption(string)
+del n
+n=int(input('введите ключ расшифровки -> '))
+string=encryption(string,n)
 print(string)
 
 #5 - Реализуйте RLE алгоритм: реализуйте модуль сжатия и восстановления данных. 
