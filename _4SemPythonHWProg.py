@@ -59,7 +59,29 @@ print(arr)
 #Сдвиг часто называют ключом шифрования.
 #Ваша задача - написать функцию, которая записывает в файл шифрованный текст, 
 #а также функцию, которая спрашивает ключ, считывает текст и дешифровывает его.
-
+def enigma(text,key)->str:
+    """шифрование сдвигом букв"""
+    world=[]
+    for i in text:
+        world.append(ord(i)+key)
+    
+    del text
+    text=[]
+    for i in world:
+        text.append(chr(i))
+    result =''.join(map(str,text))
+    return result
+def encryption(text,key)->str:
+    """расшифровка с помощью сдвига и ключа"""
+    world=[]
+    for i in text:
+        world.append(ord(i)-key)
+    del text
+    text=[]
+    for i in world:
+        text.append(chr(i))
+    result=''.join(map(str,text))
+    return result
 
 string=input('шифр Цезаря\nВведите текст->')
 string=enigma(string)
@@ -79,19 +101,39 @@ print(string)
 #файл второй:
 #сжатый текст.
 # Выполнение алгоритма сжатия данных кодирования длин серий (RLE) для строки `str`
-    val=rle_encode('AAAAAAAAAAAABBBBBBBBBBBCCCCCCCCCCDDDDDDEEEEEFFFFG python is sooooooo coooooool')
-    with open('файл2.txt','w') as file3:
-        file3.write(val)
-    #print(val)
-    with open('файл2.txt','r') as file3:
-        cripto=file3.read()
-    with open('файл1.txt','w') as file3:
-        file3.write(rle_decode(cripto))
-    turtle_run=input('запустить черепашку? y/n -> ')
-    if turtle_run=='y':
-        target=turtle()
-    else: print('by))')
+def rle_encode(data):
+   encoding = ''
+   prev_char = ''
+   count = 1
+   if not data: 
+       return ''
+   for char in data:
+      if char != prev_char:
+          if prev_char:
+             encoding += str(count) + prev_char
+          count = 1 
+          prev_char = char 
+      else:
+          count += 1
+   else:
+         encoding += str(count) + prev_char
+   return encoding
+def rle_decode(data):
+   decode = ''
+   count = '' 
+   for char in data: 
+      if char.isdigit(): 
+         count += char
+      else:
+          decode += char * int(count)
+          count = '' 
+   return decode
 
-
-except ValueError:
-    print(EOFError)
+val=rle_encode('AAAAAAAAAAAABBBBBBBBBBBCCCCCCCCCCDDDDDDEEEEEFFFFG python is sooooooo coooooool')
+with open('файл.txt','w') as file3:
+    file3.write(val)
+#print(val)
+with open('файл.txt','r') as file3:
+    cripto=file3.read()
+with open('файл1.txt','w') as file3:
+    file3.write(rle_decode(cripto))
